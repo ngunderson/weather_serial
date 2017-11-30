@@ -1,0 +1,7 @@
+To install the requirements create a virutlaenv
+
+'python3 -m venv venv3'
+
+and then install the dependencies
+
+'pip install . --process-dependency-link'
