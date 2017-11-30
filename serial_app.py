@@ -66,13 +66,11 @@ read from arduino, checks if there is anything in the buffer
 def readFromArduino():
     line = ""
     while(True):
-        print("Read loop")
         global ser
         c = ser.read()
         a = c.decode('utf-8')
         if a not in {' ', '\t', '\n', '\r'}:
             line += a
-        print('"' + line + '"')
         if (a == '\n' or a == '\r') and line:
             try:
                 message = json.loads(line)
@@ -97,32 +95,10 @@ def readFromArduino():
             except (ValueError, KeyError, NoDeviceException) as e:
                 print("exception is")
                 print(e)
-                #ser.write("{'error': 'badRequest'}".encode("utf-8"))
                 print("device ignored")
 
-            print("Line: " + line)
-            # take line and populate the db
+            # clear line
             line = ""
-    # response =  input('to print?')
-    # ser.write(response.encode('utf-8'))
-
-
-
-   # //this should be called when a new device makes a request
-# def JSONFmt():
-#     devices[devID] = {
-#         'key'        : 'key str here',
-#         'location'   :  'GPS coord here'
-#         }
-    # devices looks like: {'devID': {'key' : 'keystr', 'location' : 'GPS'}
-
-'''def bool parse(str):
-    myarr = str.split(":")
-    id = myarr[0];
-    temp = myarr[1]
-    if (id in devices.keys()):
-        return True
-        '''
 
 setup(noValidPortSelected)
 readFromArduino()
